@@ -5,9 +5,9 @@ namespace Basket.Api.GrpcServices
 {
     public class DiscountGrpcService
     {
-        private readonly DiscountProtoService.DiscountProtoServiceBase _discountProtoService;
+        private readonly DiscountProtoService.DiscountProtoServiceClient _discountProtoService;
 
-        public DiscountGrpcService(DiscountProtoService.DiscountProtoServiceBase discountProtoService)
+        public DiscountGrpcService(DiscountProtoService.DiscountProtoServiceClient discountProtoService)
         {
             _discountProtoService = discountProtoService ?? throw new ArgumentNullException(nameof(discountProtoService));
         }
@@ -16,7 +16,7 @@ namespace Basket.Api.GrpcServices
         {
             var discountRequest = new GetDiscountRequest { ProductName = productName };
 
-            return await _discountProtoService.GetDiscount(discountRequest,default(ServerCallContext));
+            return await _discountProtoService.GetDiscountAsync(discountRequest);
         }
     }
 }

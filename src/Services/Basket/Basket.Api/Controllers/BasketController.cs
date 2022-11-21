@@ -35,7 +35,7 @@ namespace Basket.Api.Controllers
         {
             foreach (var item in shoppingCart.Items)
             {
-                var coupon = await _discountGrpcServic.GetDiscount(item.ProductName);
+                var coupon =  await _discountGrpcServic.GetDiscount(item.ProductName);
                 item.Price -= coupon.Amount;
             }
             return Ok(await _repository.UpdateBasket(shoppingCart));
