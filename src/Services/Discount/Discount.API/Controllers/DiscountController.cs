@@ -3,7 +3,7 @@ using Discount.API.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-namespace Discount.API.Controller
+namespace Discount.API.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
@@ -16,21 +16,21 @@ namespace Discount.API.Controller
             _discountRepository = discountRepository;
         }
 
-        
-        [HttpGet("{productName}",Name = "GetDiscount")]
-        [ProducesResponseType(typeof(Coupon),200)]
+
+        [HttpGet("{productName}", Name = "GetDiscount")]
+        [ProducesResponseType(typeof(Coupon), 200)]
         public async Task<ActionResult<Coupon>> GetDiscount(string productName)
         {
-            var coupon= await _discountRepository.GetDiscount(productName);
+            var coupon = await _discountRepository.GetDiscount(productName);
             return Ok(coupon);
         }
-        
+
         [HttpPost]
         [ProducesResponseType(typeof(Coupon), 200)]
         public async Task<ActionResult<Coupon>> CreateDiscount(Coupon coupon)
         {
             await _discountRepository.CreateDiscount(coupon);
-            return CreatedAtRoute("GetDiscount",new {productName=coupon.ProductName},coupon );
+            return CreatedAtRoute("GetDiscount", new { productName = coupon.ProductName }, coupon);
         }
 
         [HttpPut]
@@ -40,7 +40,7 @@ namespace Discount.API.Controller
             return Ok(await _discountRepository.UpdateDiscount(coupon));
         }
 
-        [HttpDelete("{productName}",Name ="DeleteDiscount")]
+        [HttpDelete("{productName}", Name = "DeleteDiscount")]
         [ProducesResponseType(typeof(Coupon), 200)]
         public async Task<ActionResult<Coupon>> DeleteDiscount(string productName)
         {
