@@ -20,7 +20,6 @@ builder.Services.AddOcelot().AddCacheManager(setting => setting.WithDictionaryHa
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddOcelot();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -32,6 +31,6 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
-await app.UseOcelot();
+await app.UseOcelot().ConfigureAwait(false);
 app.Run();
 
